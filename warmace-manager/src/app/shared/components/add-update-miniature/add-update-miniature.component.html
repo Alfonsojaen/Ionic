@@ -1,10 +1,22 @@
-<app-header title="Agregar Miniatura" [isModal]="true"></app-header>
+<app-header [title]="miniature ? 'Actualizar miniatura' : 'Añadir miniatura'" [isModal]="true"></app-header>
 <ion-content>
   <form
     [formGroup]="form"
     class="ion-padding ion-text-center"
     (ngSubmit)="submit()"
   >
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+    <ion-icon
+      class="image-icon"
+      name="image-outline"
+      *ngIf="!form.value.image"
+    ></ion-icon>
+    <br />
+    <ion-button (click)="takeImage()" size="small" shape="round" mode="ios">
+      Tomar / Seleccionar
+    </ion-button>
     <app-custom-input
       autocomplete="name"
       [control]="form.controls.name"
@@ -65,9 +77,8 @@
       class="ion-margin"
       type="submit"
       [disabled]="form.invalid"
-    >
-      Agregar miniatura
-      <ion-icon slot="end" name="person-add-outline"></ion-icon>
+    >{{miniature ? 'Actualizar' : 'Añadir'}}
+      <ion-icon slot="end" name="body-outline"></ion-icon>
     </ion-button>
   </form>
 </ion-content>
